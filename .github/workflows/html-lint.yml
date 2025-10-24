@@ -1,0 +1,30 @@
+name: HTML Lint Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  html-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Node.js (for running htmlhint)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      # 3️⃣ Install htmlhint (a simple HTML linter)
+      - name: Install HTMLHint
+        run: npm install -g htmlhint
+
+      # 4️⃣ Run HTMLHint
+      - name: Run HTML Linter
+        run: htmlhint "**/*.html"
