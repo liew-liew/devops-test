@@ -1,0 +1,23 @@
+{
+  "name": "devops-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liew-liew/devops-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liew-liew/devops-test/issues"
+  },
+  "homepage": "https://github.com/liew-liew/devops-test#readme",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
