@@ -5,14 +5,15 @@ on:
     workflows: ["HTML Lint Check"]
     types: [completed]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-
-    permissions:
-      pages: write
-      id-token: write
 
     steps:
       - name: Checkout
@@ -24,7 +25,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: . # Deploy all files in repo root (index.html)
+          path: .  # Deploy all files in repo root
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
