@@ -1,14 +1,15 @@
 name: Lighthouse CI
-
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -23,4 +24,13 @@ jobs:
         run: npm ci
 
       - name: Run Lighthouse CI
-        run: npm run lhci
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx lhci autorun --collect.url="https://liew-liew.github.io/devops-test/"
+
+      - name: Upload Lighthouse Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: ./lhci-report
+          retention-days: 14
