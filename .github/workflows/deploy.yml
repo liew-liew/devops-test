@@ -2,13 +2,9 @@ name: Deploy Website to GitHub Pages
 
 on:
   workflow_run:
-    workflows: ["HTML Lint Check"]
-    types: [completed]
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+    workflows: ["HTML Lint Check", "Run Unit Tests", "Playwright Tests"]
+    types:
+      - completed
 
 jobs:
   deploy:
@@ -16,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .  # Deploy all files in repo root
+          path: .
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
