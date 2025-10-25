@@ -1,4 +1,4 @@
-name: Deploy Website (CI → CD)
+name: Deploy Website to GitHub Pages
 
 on:
   workflow_run:
@@ -10,6 +10,10 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
+    permissions:
+      pages: write
+      id-token: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,8 +24,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: . index.html # 你的网站内容（index.html 所在目录）
+          path: . # Deploy all files in repo root (index.html)
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
