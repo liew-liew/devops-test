@@ -21,5 +21,8 @@ jobs:
       - name: Install dependencies (CI mode)
         run: npm ci
 
+      - name: Security Audit
+        run: npm audit --audit-level=moderate
+
       - name: Run Tests
         run: npm test
